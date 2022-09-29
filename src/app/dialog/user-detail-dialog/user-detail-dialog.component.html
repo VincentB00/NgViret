@@ -1,0 +1,97 @@
+<h1 mat-dialog-title>User Detail {{data.userID}}</h1>
+<div mat-dialog-content>
+  <ul *ngIf="user" class="d-flex flex-column gap-1">
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" [(ngModel)]="user.username" (keyup)="checkUsername()" required>
+          <mat-error>Username can't be empty</mat-error>
+          <mat-hint *ngIf="user.username && usernameExist" style="color: red;">Username already Exist</mat-hint>
+          <button *ngIf="user.username" matSuffix mat-icon-button (click)="user.username=''">
+            <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+    </li>
+    <li>
+        <mat-form-field appearance="fill" [style.width.ch]="40">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" [(ngModel)]="user.email">
+            <button *ngIf="user.email" matSuffix mat-icon-button (click)="user.email=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+        <mat-label>User Roles</mat-label>
+        <mat-select [(ngModel)]="user.userRoles![0].authority">
+          <mat-option value="OWNER" disabled="true">OWNER</mat-option>
+          <mat-option value="ADMIN">ADMIN</mat-option>
+          <mat-option value="NORMAL">NORMAL</mat-option>
+        </mat-select>
+        <mat-hint>Doesn't work atm</mat-hint>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+        <mat-label>Account Non Expired</mat-label>
+        <mat-select [(ngModel)]="user.accountNonExpired">
+          <mat-option [value]="true">true</mat-option>
+          <mat-option [value]="false">false</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+        <mat-label>Account Non Locked</mat-label>
+        <mat-select [(ngModel)]="user.accountNonLocked">
+          <mat-option [value]="true">True</mat-option>
+          <mat-option [value]="false">False</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+        <mat-label>Credentials Non Expired</mat-label>
+        <mat-select [(ngModel)]="user.credentialsNonExpired">
+          <mat-option [value]="true">True</mat-option>
+          <mat-option [value]="false">False</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+        <mat-label>Enable</mat-label>
+        <mat-select [(ngModel)]="user.enabled">
+          <mat-option [value]="true">True</mat-option>
+          <mat-option [value]="false">False</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field appearance="fill" [style.width.ch]="40">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="getVisibility(passwordVisibility)" [(ngModel)]="user.password" required>
+          <mat-hint>This password is in hash value, hense it is not original password</mat-hint>
+          <mat-error>Password can't be empty</mat-error>
+          <button *ngIf="user.password" matSuffix mat-icon-button (click)="user.password=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button *ngIf="passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+              <mat-icon>visibility</mat-icon>
+          </button>
+          <button *ngIf="!passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+              <mat-icon>visibility_off</mat-icon>
+          </button>
+          <button matSuffix mat-icon-button (click)="generateValue()">
+              <mat-icon>generating_tokens</mat-icon>
+          </button>
+      </mat-form-field>
+  </li>
+  </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!isValueChange()" (click)="save()">Save</button>
+  <button mat-raised-button color="accent" [disabled]="!isValueChange()" (click)="revert()">Revert</button>
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+</div>

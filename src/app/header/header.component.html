@@ -1,0 +1,16 @@
+<mat-toolbar>
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span *ngIf="this.userService.isLogin()"><a routerLink="home" style="color: black;"> <h1>{{this.userService.getUser()!.username}}</h1> </a></span>
+        
+    <span *ngIf="path === 'home'"><a mat-button (click)="touchBar.displayMenu = !touchBar.displayMenu"><h1>Display Menu</h1></a></span>
+    <span *ngIf="path === 'home'"><a mat-button (click)="touchBar.displayItemDetail = !touchBar.displayItemDetail"><h1>Display Item detail</h1></a></span>
+
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>search</mat-icon>
+    </button>
+</mat-toolbar>
+
+

@@ -1,0 +1,29 @@
+<div *ngFor="let item of items">
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>{{item.name}}</b>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+            <li>
+                <a mat-button [cdkCopyToClipboard]="item.url" (click)="copyNotification(item.url)">URL: {{item.url}}</a>
+            </li>
+            <li>
+                <a mat-button [cdkCopyToClipboard]="item.username" (click)="copyNotification(item.username)">User name: {{item.username}}</a>
+            </li>
+            <li>
+                <a mat-button [cdkCopyToClipboard]="item.password" (click)="copyNotification('Password')">Password: ******</a>
+            </li>
+            <li>
+                <a mat-button [cdkCopyToClipboard]="item.authenticatorKey" (click)="copyNotification('Authenticator Key')">Authenticator (key): {{item.authenticatorKey}}</a>
+            </li>
+            
+            <li>
+                <button mat-raised-button color="primary" style="width: 100%;" (click)="openItemDetail(item)">More Detail</button>
+                <hr>
+                <button mat-raised-button color="warn" style="width: 100%;" (click)="removeItem(item)" [disabled]="!homeDetail.isGroupAdminOrOwner()">Delete Item</button>
+            </li>
+        </ul>
+    </mat-expansion-panel>
+</div>

@@ -1,0 +1,49 @@
+
+<h1 mat-dialog-title>Generate Value</h1>
+<div mat-dialog-content>
+    <ul class="item-body">
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Length</mat-label>
+                <input matInput type="number" min="0" max="65522" [(ngModel)]="options.length">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Lower Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.lowerCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Upper Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.upperCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Digit Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.digitCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Special Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.specialCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill">
+                <mat-label>Generated Value</mat-label>
+                <input matInput type="text" [(ngModel)]="value" >
+            </mat-form-field>
+        </li>
+        <li>
+            <button mat-raised-button color="accent" style="width: 100%;" (click)="generateValue()">Generate</button>
+        </li>
+    </ul>
+</div>
+<div mat-dialog-actions>
+<button mat-raised-button color="warn" mat-dialog-close>Close</button>
+<button mat-raised-button color="primary" [mat-dialog-close]="value" [disabled]="!value">Confirm</button>
+</div>

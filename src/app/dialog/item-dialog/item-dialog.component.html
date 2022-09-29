@@ -1,0 +1,145 @@
+
+<h1 mat-dialog-title>Item Detail</h1>
+    <div mat-dialog-content>
+        <ul class="item-body">
+            <li>
+                <mat-form-field appearance="fill" [style.width.ch]="getSize(item.name)">
+                    <mat-label>Item Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="item.name">
+                    <button *ngIf="item.name" matSuffix mat-icon-button (click)="item.name=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="item.name" matSuffix mat-icon-button (click)="copyNotification(item.name)" [cdkCopyToClipboard]="item.name">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="fill" [style.width.ch]="getSize(item.url)">
+                    <mat-label>URL</mat-label>
+                    <input matInput [type]="getVisibility(urlVisibility)" [(ngModel)]="item.url">
+                    <button *ngIf="item.url" matSuffix mat-icon-button (click)="item.url=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="urlVisibility" matSuffix mat-icon-button (click)="urlVisibility = !urlVisibility">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button *ngIf="!urlVisibility" matSuffix mat-icon-button (click)="urlVisibility = !urlVisibility">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="item.url" matSuffix mat-icon-button (click)="copyNotification(item.url)" [cdkCopyToClipboard]="item.url">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="fill" [style.width.ch]="getSize(item.username)">
+                    <mat-label>Username</mat-label>
+                    <input matInput [type]="getVisibility(usernameVisibility)" [(ngModel)]="item.username" #username>
+                    <button *ngIf="item.username" matSuffix mat-icon-button (click)="item.username=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="usernameVisibility" matSuffix mat-icon-button (click)="usernameVisibility = !usernameVisibility">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button *ngIf="!usernameVisibility" matSuffix mat-icon-button (click)="usernameVisibility = !usernameVisibility">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="item.username" matSuffix mat-icon-button appCopyToClipboard [copyToClipboardValue]="item.username">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                    <button matSuffix mat-icon-button (click)="generateValue(username)">
+                        <mat-icon>generating_tokens</mat-icon>
+                    </button>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="fill" [style.width.ch]="getSize(item.password)">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="getVisibility(passwordVisibility)" [(ngModel)]="item.password" #password>
+                    <button *ngIf="item.password" matSuffix mat-icon-button (click)="item.password=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button *ngIf="!passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="item.password" matSuffix mat-icon-button (click)="copyNotification('Password')" [cdkCopyToClipboard]="item.password">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                    <button matSuffix mat-icon-button (click)="generateValue(password)">
+                        <mat-icon>generating_tokens</mat-icon>
+                    </button>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="fill" [style.width.ch]="getSize(item.authenticatorKey)">
+                    <mat-label>Authenticator (key)</mat-label>
+                    <input matInput [type]="getVisibility(authenticatorKeyVisibility)" [(ngModel)]="item.authenticatorKey">
+                    <button *ngIf="item.authenticatorKey" matSuffix mat-icon-button (click)="item.authenticatorKey=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="authenticatorKeyVisibility" matSuffix mat-icon-button (click)="authenticatorKeyVisibility = !authenticatorKeyVisibility">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button *ngIf="!authenticatorKeyVisibility" matSuffix mat-icon-button (click)="authenticatorKeyVisibility = !authenticatorKeyVisibility">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="item.authenticatorKey" matSuffix mat-icon-button (click)="copyNotification('Authenticator Key')" [cdkCopyToClipboard]="item.authenticatorKey">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                </mat-form-field>
+            </li>
+            <li><label for="note">Note</label></li>
+            <li><textarea id="note" cols="40" [rows]="getLineHeight(item.note)" [(ngModel)]="item.note"></textarea></li>
+            <hr>
+            <li>Custom Field</li>
+            <li *ngFor="let itemStorage of item.itemStorages">
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        <b>{{itemStorage.name}}</b>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul>
+                        <li>
+                            <mat-form-field appearance="fill" [style.width.ch]="getSize(itemStorage.name)">
+                                <mat-label>Key</mat-label>
+                                <input matInput type="text" [(ngModel)]="itemStorage.name">
+                                <button *ngIf="itemStorage.name" matSuffix mat-icon-button (click)="itemStorage.name=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                                <button *ngIf="itemStorage.name" matSuffix mat-icon-button (click)="copyNotification(itemStorage.name)" [cdkCopyToClipboard]="itemStorage.name">
+                                    <mat-icon>file_copy</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </li>
+                        <li>
+                            <label for="value">Value</label>
+                        </li>
+                        <li>
+                            <textarea id="value" cols="40" [rows]="getLineHeight(itemStorage.value)" [(ngModel)]="itemStorage.value"></textarea>
+                        </li>
+                        <li>
+                            <button mat-raised-button color="primary" (click)="copyNotification('value')" [cdkCopyToClipboard]="itemStorage.value">Copy Value to clipboard</button>
+                            <button mat-raised-button color="warn" (click)="itemStorage.value = ''">Clear</button>
+                        </li>
+                        <hr>
+                        <li>
+                            <button mat-raised-button color="warn" (click)="remove(itemStorage)">Delete</button>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+            </li>
+            <li>
+                <h2 style="margin-top: 5px;">Add</h2>
+                <button mat-icon-button (click)="addField()"><mat-icon>add</mat-icon></button>
+            </li>
+        </ul>
+    </div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="item" [disabled]="isChange()">Save</button>
+</div>

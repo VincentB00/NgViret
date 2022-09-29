@@ -1,0 +1,26 @@
+<div class="box" *ngIf="user">
+    <ul>
+        <li><h1 class="text-center">Setting</h1></li>
+        <li><h2>{{user.username}}</h2></li>
+        <li>
+            <mat-form-field appearance="fill" [style.width.ch]="40">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" [(ngModel)]="user.username" disabled="true">
+            </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field appearance="fill" [style.width.ch]="40">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" [(ngModel)]="user.email">
+                <button *ngIf="user.email" matSuffix mat-icon-button (click)="user.email=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </li>
+        <hr>
+        <li>
+            <button mat-raised-button color="primary" style="width: 50%;" (click)="save()" [disabled]="!isChange()">Save</button>
+            <button mat-raised-button color="accent" style="width: 50%;" (click)="revert()" [disabled]="!isChange()">Revert</button>
+        </li>
+    </ul>
+</div>

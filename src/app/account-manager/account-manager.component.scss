@@ -1,0 +1,21 @@
+.box
+{
+    width: 95%;
+    margin-top: 3%;
+}
+
+th.mat-sort-header-sorted 
+{
+    color: black;
+}
+
+.mat-row .mat-cell 
+{
+    // border: 3px solid transparent;
+    cursor: pointer;
+}
+  
+.mat-row:hover .mat-cell 
+{
+    background-color: lightblue;
+}

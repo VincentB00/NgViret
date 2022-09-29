@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>Create new User</h1>
+<div mat-dialog-content>
+    <ul class="d-flex flex-column">
+        <li>
+            <mat-form-field appearance="fill" [style.width.ch]="getSize(user.username)">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" [(ngModel)]="user.username" (keyup)="checkUsername()" required>
+                <mat-error>Username can't be empty</mat-error>
+                <mat-hint *ngIf="user.username && usernameExist" style="color: red;">Username already Exist</mat-hint>
+                <button *ngIf="user.username" matSuffix mat-icon-button (click)="user.username=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field appearance="fill" [style.width.ch]="getSize(user.email)">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" [(ngModel)]="user.email">
+                <button *ngIf="user.email" matSuffix mat-icon-button (click)="user.email=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field appearance="fill" [style.width.ch]="getSize(user.password)">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="getVisibility(passwordVisibility)" [(ngModel)]="user.password" required>
+                <mat-hint>Please Do have a fairly secure password</mat-hint>
+                <mat-error>Password can't be empty</mat-error>
+                <button *ngIf="user.password" matSuffix mat-icon-button (click)="user.password=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <button *ngIf="passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button *ngIf="!passwordVisibility" matSuffix mat-icon-button (click)="passwordVisibility = !passwordVisibility">
+                    <mat-icon>visibility_off</mat-icon>
+                </button>
+                <button matSuffix mat-icon-button (click)="generateValue()">
+                    <mat-icon>generating_tokens</mat-icon>
+                </button>
+            </mat-form-field>
+        </li>
+        
+    </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" (click)="createNewUser()" [disabled]="!user.username || !user.password || usernameExist">Create New User</button>
+</div>

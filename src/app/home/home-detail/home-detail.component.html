@@ -1,0 +1,74 @@
+<div class="box">
+    <div *ngIf="!groupID">
+        <h1 class="text-center">Please select group from Groups panel</h1>
+    </div>
+    <div *ngIf="groupID">
+        <mat-tab-group>
+            <mat-tab label="Item">
+                <ul>
+                    <li>
+                        <button mat-raised-button color="primary" style="width: 100%;" (click)="addNewItem()" [disabled]="!isGroupAdminOrOwner()">Add New Item</button>
+                    </li>
+                    <li style="width: 100%;">
+                        <app-item-list [items]="items" [homeDetail]="this"></app-item-list>
+                    </li>
+                </ul>
+            </mat-tab>
+            <mat-tab label="Group" >
+                <ul *ngIf="group" class="group">
+                    <li>
+                        <mat-form-field appearance="fill" [style.width.ch]="getSize(group.name)">
+                            <mat-label>Group Name</mat-label>
+                            <input matInput type="text" [(ngModel)]="group.name" [disabled]="!isGroupAdminOrOwner()">
+                            <button *ngIf="group.name" matSuffix mat-icon-button (click)="group.name=''" [disabled]="!isGroupAdminOrOwner()">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                            <button *ngIf="group.name" matSuffix mat-icon-button [cdkCopyToClipboard]="group.name">
+                                <mat-icon>file_copy</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </li>
+                    <hr>
+                    <li>
+                        <h1>Users</h1>
+                    </li>
+                    <li *ngFor="let user of group.group_users">
+                        <mat-expansion-panel hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <b>{{user.username}} : {{user.authority}}</b>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ul>
+                                <li>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>User role</mat-label>
+                                        <mat-select [disabled]="user.authority === 'OWNER' || !isGroupAdminOrOwner()" [(ngModel)]="user.authority">
+                                            <mat-option value="OWNER" disabled>OWNER</mat-option>
+                                            <mat-option value="ADMIN">ADMIN</mat-option>
+                                            <mat-option value="NORMAL">NORMAL</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </li>
+                                <li>
+                                    <button mat-raised-button color="warn" style="width: 100%;" (click)="removeUserFromGroup(user)"  [disabled]="user.authority === 'OWNER' || !isGroupAdminOrOwner()">Remove user</button>
+                                </li>
+                            </ul>
+                        </mat-expansion-panel>
+                    </li>
+                    <li>
+                        <h2 style="margin-top: 5px;">Add User</h2>
+                        <button mat-icon-button (click)="addUser()"><mat-icon>add</mat-icon></button>
+                    </li>
+                    <li>
+                        <button mat-raised-button color="primary" style="width: 50%;" (click)="saveGroup()"  [disabled]="isGroupChanges() || !isGroupAdminOrOwner()">Save</button>
+                        <button mat-raised-button color="accent" style="width: 50%;" (click)="revertGroup()"  [disabled]="isGroupChanges()">Revert</button>
+                    </li>
+                    <li>
+                        <button mat-raised-button color="warn" style="width: 100%;" (click)="deleteGroup(group)" [disabled]="!isGroupOwner()">Delete this group</button>
+                    </li>
+                </ul>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
