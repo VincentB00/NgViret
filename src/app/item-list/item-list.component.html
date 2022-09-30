@@ -1,4 +1,13 @@
-<div *ngFor="let item of items">
+<app-mat-form-field-input
+label="Search name"
+[value]="filter" (valueOutput)="filter = $event"
+[styleWidth]="'100%'"
+[showCopyToClipboard]="false"
+[showGenerateValue]="false"
+[showVisibleSwitch]="false">
+</app-mat-form-field-input>
+
+<div *ngFor="let item of getFilterItem()">
     <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -6,24 +15,41 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <ul>
-            <li>
+            <li *ngIf="item.url">
                 <a mat-button [cdkCopyToClipboard]="item.url" (click)="copyNotification(item.url)">URL: {{item.url}}</a>
+                <a [href]="item.url" target="_blank"><mat-icon>public</mat-icon></a>
             </li>
-            <li>
+            <li *ngIf="item.username">
                 <a mat-button [cdkCopyToClipboard]="item.username" (click)="copyNotification(item.username)">User name: {{item.username}}</a>
             </li>
-            <li>
+            <li *ngIf="item.password">
                 <a mat-button [cdkCopyToClipboard]="item.password" (click)="copyNotification('Password')">Password: ******</a>
             </li>
-            <li>
+            <li *ngIf="item.authenticatorKey">
                 <a mat-button [cdkCopyToClipboard]="item.authenticatorKey" (click)="copyNotification('Authenticator Key')">Authenticator (key): ******</a>
             </li>
+
+            <li *ngIf="item.note">
+                <textarea id="note" cols="40" [rows]="getLineHeight(item.note)" [value]="item.note" disabled></textarea>
+            </li>
             
+            <li *ngFor="let itemStorage of item.itemStorages">
+                <a mat-button [cdkCopyToClipboard]="itemStorage.name" (click)="copyNotification(itemStorage.name)">{{itemStorage.name}}:</a>
+                <a mat-button [cdkCopyToClipboard]="itemStorage.value" (click)="copyNotification(itemStorage.value)">{{itemStorage.value}}</a>
+            </li>
+
+            <li>
+                <button mat-raised-button color="primary" style="width: 100%;" (click)="copyItemToClipBoard(item)">Copy Everything to clipboard</button>
+            </li>
+
             <li>
                 <button mat-raised-button color="primary" style="width: 100%;" (click)="openItemDetail(item)">More Detail</button>
-                <hr>
+            </li>
+            <hr>
+            <li>
                 <button mat-raised-button color="warn" style="width: 100%;" (click)="removeItem(item)" [disabled]="!homeDetail.isGroupAdminOrOwner()">Delete Item</button>
             </li>
+            
         </ul>
     </mat-expansion-panel>
 </div>

@@ -18,6 +18,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { AccountComponent } from './account/account.component';
 import { SettingComponent } from './account/setting/setting.component';
 import { ChangePasswordComponent } from './account/change-password/change-password.component';
+import { ValueGeneratorComponent } from './value-generator/value-generator.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ChangePasswordComponent } from './account/change-password/change-passwo
     AccountComponent,
     SettingComponent,
     ChangePasswordComponent,
+    ValueGeneratorComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { SettingComponent } from './account/setting/setting.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { ValueGeneratorComponent } from './value-generator/value-generator.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       }
     ],
     component: AccountComponent
+  },
+  {
+    path: 'value_generator',
+    component: ValueGeneratorComponent
   },
   {
     path: 'account_manager',

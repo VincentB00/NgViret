@@ -24,18 +24,7 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
 
   selectedGroupID: number = 0;
 
-  relatedGroup: Group[] = [];
-
-  private _transformer(node: GroupNode, level: number)
-  {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-      path: node.path,
-      groupID: node.groupID
-    };
-  };
+  relatedGroups: Group[] = [];
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
@@ -78,6 +67,17 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
     }
   }
 
+  private _transformer(node: GroupNode, level: number)
+  {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+      path: node.path,
+      groupID: node.groupID
+    };
+  };
+
   updateTree()
   {
     this.groupService.getAllGroupNode().pipe(first()).subscribe(
@@ -89,8 +89,8 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
 
     this.groupService.getAllRelatedGroup().pipe(first()).subscribe(
       res => {
-        if(JSON.stringify(this.relatedGroup) !== JSON.stringify(res))
-          this.relatedGroup = res;
+        if(JSON.stringify(this.relatedGroups) !== JSON.stringify(res))
+          this.relatedGroups = res;
       }
     );
   }
@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
     );
   }
 
-  selectGroupNode(node: FlatNode)
+  selectFlatNode(node: FlatNode)
   {
     this.selectedGroupID = node.groupID;
   }
@@ -149,5 +149,23 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
   selectGroup(group: Group): void
   {
     this.selectedGroupID = group.id!;
+  }
+
+  selectGroupNode(group: GroupNode): void
+  {
+    this.selectedGroupID = group.groupID;
+  }
+
+  getFilterGroups(): GroupNode[]
+  {
+    if(!this.filter)
+      return [];
+
+    return this.dataSource.data.filter(g => g.name.toLowerCase().includes(this.filter.toLowerCase()));
+  }
+
+  getFilterSharedGroup(): Group[]
+  {
+    return this.relatedGroups.filter(g => g.name.toLowerCase().includes(this.filter.toLowerCase()));
   }
 }

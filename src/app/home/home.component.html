@@ -3,26 +3,28 @@
       <ul>
           <li><h1>Filter</h1></li>
           <li>
-              <mat-form-field appearance="fill" style="width: 100%;">
-                  <mat-label>Filter</mat-label>
-                  <input matInput type="text" [(ngModel)]="filter">
-                  <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''">
-                    <mat-icon>close</mat-icon>
-                  </button>
-              </mat-form-field>
+            <app-mat-form-field-input
+              label="Filter"
+              [value]="filter" (valueOutput)="filter = $event"
+              [width]="20"
+              [styleWidth]="'100%'"
+              [showCopyToClipboard]="false"
+              [showGenerateValue]="false"
+              [showVisibleSwitch]="false">
+            </app-mat-form-field-input>
           </li>
           <hr>
           <li class="d-flex">
             <h1>Groups</h1>
             <button mat-icon-button (click)="addEmptyGroup()"><mat-icon style="margin-bottom: 7px;">add</mat-icon></button>
           </li>
-          <li>
+          <li *ngIf="!filter">
               <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <!-- This is the tree node template for leaf nodes -->
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
                     <!-- use a disabled button to provide padding for tree leaf -->
                     <button mat-icon-button disabled></button>
-                    <a mat-button (click)="selectGroupNode(node)">{{node.name}}</a>
+                    <a mat-button (click)="selectFlatNode(node)">{{node.name}}</a>
                     <button mat-icon-button (click)="addGroup(node)"><mat-icon>add</mat-icon></button>
                   </mat-tree-node>
                   <!-- This is the tree node template for expandable nodes -->
@@ -34,17 +36,22 @@
                       </mat-icon>
                     </button>
                     
-                    <a mat-button (click)="selectGroupNode(node)">{{node.name}}</a>
+                    <a mat-button (click)="selectFlatNode(node)">{{node.name}}</a>
 
                     <button mat-icon-button (click)="addGroup(node)"><mat-icon>add</mat-icon></button>
                   </mat-tree-node>
                 </mat-tree>
           </li>
+          <li *ngIf="filter">
+            <div *ngFor="let group of getFilterGroups()">
+              <a mat-button (click)="selectGroupNode(group)">{{group.name}}</a>
+            </div>
+          </li>
           <hr>
           <li>
             <h1>Shared Group</h1>
           </li>
-          <li *ngFor="let group of relatedGroup">
+          <li *ngFor="let group of getFilterSharedGroup()">
             <a mat-button (click)="selectGroup(group)">{{group.name}}</a>
           </li>
       </ul>

@@ -31,7 +31,16 @@ textarea
 {
     *
     {
-        font-size: small;
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 520px)
+{
+    *
+    {
+        font-size: medium;
+        width: fit-content;
     }
 }
 

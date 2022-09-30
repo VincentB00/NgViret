@@ -17,6 +17,7 @@
                     label="URL"
                     [value]="item.url" (valueOutput)="item.url = $event"
                     [autoResize]="true"
+                    [showGoto]="true"
                     [showGenerateValue]="false">
                 </app-mat-form-field-input>
             </li>
@@ -92,5 +93,5 @@
     </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="item" [disabled]="isChange()">Save</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="item" [disabled]="isChange() || !item.name">Save</button>
 </div>

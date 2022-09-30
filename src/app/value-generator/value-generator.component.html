@@ -1,0 +1,48 @@
+<h1 class="text-center">Value Generator</h1>
+<div>
+    <ul>
+        <li> 
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Length</mat-label>
+                <input matInput type="number" min="0" max="65522" [(ngModel)]="options.length">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Lower Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.lowerCase">
+            </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Upper Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.upperCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Digit Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.digitCase">
+            </mat-form-field>
+        </li>
+        <li> 
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Special Case</mat-label>
+                <input matInput type="number" min="0" [(ngModel)]="options.specialCase">
+            </mat-form-field>
+        </li>
+        <li>
+            <app-mat-form-field-input
+            style="width: 100%;"
+            label="GeneratedValue"
+            [value]="value" (valueOutput)="value = $event"
+            [styleWidth]="'100%'"
+            [showGenerateValue]="false"
+            [showVisibleSwitch]="false"
+            ></app-mat-form-field-input>
+        </li>
+        <li>
+            <button mat-raised-button color="accent" style="width: 100%;" (click)="generateValue()">Generate</button>
+        </li>
+    </ul>
+</div>

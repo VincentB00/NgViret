@@ -8,6 +8,7 @@
       <li *ngIf="!userService.isLogin()"><a routerLink="login"><h1>Login</h1></a></li>
       <li *ngIf="userService.isAdminOrOwner()"><a routerLink="account_manager"><h1>Account Manager</h1></a></li>
       <li *ngIf="userService.isLogin()"><a routerLink="account"><h1>Account</h1></a></li>
+      <li *ngIf="userService.isLogin()"><a routerLink="value_generator"><h1>Value Generator</h1></a></li>
       <li *ngIf="userService.isLogin()"><a href="#" (click)="logout()"><h1>Logout</h1></a></li>
     </ul>
   </mat-drawer>
