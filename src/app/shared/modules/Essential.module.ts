@@ -12,6 +12,10 @@ import { CreateUserDialog } from 'src/app/dialog/create-user-dialog/create-user-
 import { UserDetailDialog } from 'src/app/dialog/user-detail-dialog/user-detail-dialog.component';
 import { AddUserDialog } from 'src/app/dialog/add-user-dialog/add-user-dialog.component';
 import { CopyToClipboardDirective } from '../directives/copy-to-clipboard.directive';
+import { MatFormFieldInputComponent } from 'src/app/util-component/mat-form-field-input/mat-form-field-input.component';
+import { ValueGeneratorUtilComponent } from 'src/app/util-component/value-generator-util/value-generator-util.component';
+import { CopyToClipboardUtilComponent } from 'src/app/util-component/copy-to-clipboard-util/copy-to-clipboard-util.component';
+import { InputTypeSwitchComponent } from 'src/app/util-component/input-type-switch/input-type-switch.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +26,11 @@ import { CopyToClipboardDirective } from '../directives/copy-to-clipboard.direct
         CreateUserDialog,
         UserDetailDialog,
         AddUserDialog,
-        CopyToClipboardDirective
+        CopyToClipboardDirective,
+        MatFormFieldInputComponent,
+        ValueGeneratorUtilComponent,
+        CopyToClipboardUtilComponent,
+        InputTypeSwitchComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -40,7 +48,11 @@ import { CopyToClipboardDirective } from '../directives/copy-to-clipboard.direct
         HttpClientModule,
         ConfirmDialog,
         InputDialog,
-        ClipboardModule
+        ClipboardModule,
+        MatFormFieldInputComponent,
+        ValueGeneratorUtilComponent,
+        CopyToClipboardUtilComponent,
+        InputTypeSwitchComponent
     ]
 })
 export class EssentialModule {}

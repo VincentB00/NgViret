@@ -11,6 +11,9 @@ export class CopyToClipboardDirective
   @Input()
   copyToClipboardValue: any;
 
+  @Input()
+  copyMessage: string = '';
+
   @HostListener('click')
   onClick()
   {
@@ -21,8 +24,11 @@ export class CopyToClipboardDirective
 
   copyNotification(str: string): void
   {
+    let message = this.copyMessage;
+    if(!message)
+      message = str;
     this.clipBoard.copy(str);
-    this.snackBar.open(str + " copied to Clipboard!", 'ok',{
+    this.snackBar.open(message + " copied to Clipboard!", 'ok',{
       duration: 1000
     })
   }

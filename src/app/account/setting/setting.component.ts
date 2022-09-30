@@ -30,7 +30,7 @@ export class SettingComponent implements OnInit {
   save(): void
   {
     this.userService.modifyCurrentLoginUser(this.user).pipe(first()).subscribe(
-      res => {},
+      res => {this.userCopy = structuredClone(this.user)},
       error => {this.userService.handleError(error)}
     );
   }

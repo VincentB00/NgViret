@@ -1,0 +1,11 @@
+<mat-form-field [appearance]="'fill'" [style.width.ch]="getSize(value)">
+  <mat-label>{{label}}</mat-label>
+  <input matInput [type]="defaultType" [(ngModel)]="value" #input (keyup)="emitValue()" [placeholder]="placeholder" [required]="required" [disabled]="disable">
+  <mat-error>{{label}} can't be empty</mat-error>
+  <button *ngIf="value && !disable" matSuffix mat-icon-button (click)="clear()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <app-input-type-switch *ngIf="showVisibleSwitch && !disable" matSuffix [switch]="switchVisibility" [htmlInputElement]="input" [trueValue]="defaultType" [falseValue]="switchType" [onIcon]="onIcon" [offIcon]="offIcon"></app-input-type-switch>
+  <app-copy-to-clipboard-util *ngIf="showCopyToClipboard && !disable" matSuffix [copyValue]="value" [displayMessage]="copyDisplayMessage"></app-copy-to-clipboard-util>
+  <app-value-generator-util *ngIf="showGenerateValue && !disable" matSuffix (valueEmitter)="value = $event; emitValue()"></app-value-generator-util>
+</mat-form-field>

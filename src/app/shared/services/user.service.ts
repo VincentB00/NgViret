@@ -200,4 +200,9 @@ export class UserService
         this.router.navigate(['/home']).catch();
     }
   }
+
+  changePassword(body: any): Observable<Response>
+  {
+    return this.httpClient.put<Response>(`${environment.api}/users/changePassword`, body);
+  }
 }

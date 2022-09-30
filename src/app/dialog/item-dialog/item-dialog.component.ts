@@ -88,23 +88,4 @@ export class ItemDialog implements OnInit {
   {
     this.item.itemStorages = this.item.itemStorages.filter((is) => is.name !== itemStorage.name);
   }
-
-  generateValue(ref: HTMLInputElement): void
-  {
-    let dialog = this.matDialog.open(ValueGeneratorDialog);
-
-    dialog.afterClosed().pipe(first()).subscribe(
-      res => {
-        if(res)
-          ref.value = res;
-      }
-    );
-  }
-
-  copyNotification(str: string): void
-  {
-    this.snackBar.open(str + " copied to Clipboard!", 'ok',{
-      duration: 1000
-    })
-  }
 }

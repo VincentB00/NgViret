@@ -32,7 +32,7 @@ import { ChangePasswordComponent } from './account/change-password/change-passwo
     ItemListComponent,
     AccountComponent,
     SettingComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

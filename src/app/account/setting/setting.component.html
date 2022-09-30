@@ -3,19 +3,22 @@
         <li><h1 class="text-center">Setting</h1></li>
         <li><h2>{{user.username}}</h2></li>
         <li>
-            <mat-form-field appearance="fill" [style.width.ch]="40">
-                <mat-label>Username</mat-label>
-                <input matInput type="text" [(ngModel)]="user.username" disabled="true">
-            </mat-form-field>
+            <app-mat-form-field-input
+                label="Username"
+                [value]="user.username" (valueOutput)="user.username = $event"
+                [disable]="true"
+                [required]="true"
+                [showCopyToClipboard]="false">
+            </app-mat-form-field-input>
         </li>
         <li>
-            <mat-form-field appearance="fill" [style.width.ch]="40">
-                <mat-label>Email</mat-label>
-                <input matInput type="text" [(ngModel)]="user.email">
-                <button *ngIf="user.email" matSuffix mat-icon-button (click)="user.email=''">
-                  <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+            <app-mat-form-field-input
+                label="Email"
+                [value]="user.email" (valueOutput)="user.email = $event"
+                [showCopyToClipboard]="false"
+                [showGenerateValue]="false"
+                [showVisibleSwitch]="false">
+            </app-mat-form-field-input>
         </li>
         <hr>
         <li>
