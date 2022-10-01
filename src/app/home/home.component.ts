@@ -161,7 +161,24 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewChecked{
     if(!this.filter)
       return [];
 
-    return this.dataSource.data.filter(g => g.name.toLowerCase().includes(this.filter.toLowerCase()));
+    let groupNodes: GroupNode[] = [];
+
+    this.dataSource.data.forEach(gn => groupNodes.push(...this.filterGroups(gn)));
+
+    return groupNodes;
+  }
+
+  private filterGroups(groupNode: GroupNode): GroupNode[]
+  {
+    let groupNodes: GroupNode[] = [];
+
+    if(groupNode.name.toLowerCase().includes(this.filter.toLowerCase()))
+        groupNodes.push(groupNode);
+
+    if(groupNode.children)
+      groupNode.children.forEach(gn => groupNodes.push(...this.filterGroups(gn)));
+
+    return groupNodes;
   }
 
   getFilterSharedGroup(): Group[]
